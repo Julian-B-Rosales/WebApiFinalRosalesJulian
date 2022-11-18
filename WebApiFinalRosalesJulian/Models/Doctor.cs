@@ -14,8 +14,12 @@ namespace WebApiFinalRosalesJulian.Models
         [Column(TypeName = "varchar(50)")]
         public string Especialidad { get; set; }
 
-        [Required]
+        [ForeignKey("Hospital")]
+        public int Hospital_Cod { get; set; }
+
         public Hospital Hospital { get; set; }
+
+        
 
     }
 }

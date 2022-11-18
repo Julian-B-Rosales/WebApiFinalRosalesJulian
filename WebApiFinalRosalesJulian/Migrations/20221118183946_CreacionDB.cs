@@ -15,7 +15,7 @@ namespace WebApiFinalRosalesJulian.Migrations
                     Nombre = table.Column<string>(type: "varchar(50)", nullable: true),
                     Direccion = table.Column<string>(type: "varchar(50)", nullable: true),
                     Telefono = table.Column<string>(type: "varchar(50)", nullable: true),
-                    Num_Cama = table.Column<int>(nullable: false)
+                    Num_Cama = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

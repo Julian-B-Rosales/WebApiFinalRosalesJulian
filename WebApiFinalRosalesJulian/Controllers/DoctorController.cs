@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiFinalRosalesJulian.Context;
+using Microsoft.EntityFrameworkCore;
 using WebApiFinalRosalesJulian.Models;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace WebApiFinalRosalesJulian.Controllers
 {
@@ -24,8 +26,8 @@ namespace WebApiFinalRosalesJulian.Controllers
             return context.Doctores.ToList();
         }
 
-        //GET /api/doctor/{Doctor_No}
-        [HttpGet("{Doctor_No}")]
+        //GET /api/doctor/DoctorNo/{Doctor_No}
+        [HttpGet("DoctorNo/{Doctor_No}")]
         public ActionResult<Doctor> GetByDoctorNo(int Doctor_No)
         {
             Doctor doc = context.Doctores.Find(Doctor_No);
@@ -36,6 +38,17 @@ namespace WebApiFinalRosalesJulian.Controllers
             }
 
             return doc;
+        }
+
+        //GET /api/doctor/especialidad/{especialidad}
+        [HttpGet("especialidad/{especialidad}")]
+        public ActionResult<IEnumerable<Doctor>> GetByEspecialidad(string especialidad)
+        {
+            List<Doctor> doctores = (from d in context.Doctores
+                                     where d.Especialidad == especialidad
+                                     select d).ToList();
+
+            return doctores;
         }
 
         //POST /api/doctor
@@ -52,6 +65,22 @@ namespace WebApiFinalRosalesJulian.Controllers
 
             return Ok();
         }
+
+        //PUT /api/doctor/{Doctor_No}
+        [HttpPut("{Doctor_No}")]
+        public ActionResult Put(int Doctor_No, [FromBody] Doctor doctor)
+        {
+            if (Doctor_No != doctor.Doctor_No)
+            {
+                return BadRequest();
+            }
+
+            context.Entry(doctor).State = EntityState.Modified;
+            context.SaveChanges();
+
+            return Ok();
+        }
+
 
         //DELETE /api/doctor/{Doctor_No}
         [HttpDelete("{Doctor_No}")]

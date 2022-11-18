@@ -9,7 +9,7 @@ using WebApiFinalRosalesJulian.Context;
 namespace WebApiFinalRosalesJulian.Migrations
 {
     [DbContext(typeof(DBHospitalContext))]
-    [Migration("20221118175514_CreacionDB")]
+    [Migration("20221118183946_CreacionDB")]
     partial class CreacionDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
